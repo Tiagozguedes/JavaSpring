@@ -15,7 +15,7 @@ public class ProdutoService {
     private ProdutoRepository produtoRepository;
 
     //CRUD
-    public Produto produto(Produto produto) {
+    public Produto create (Produto produto) {
         return produtoRepository.save(produto);
     }
 
@@ -24,7 +24,7 @@ public class ProdutoService {
         return produto.orElse(null);
     }
 
-    public List<Produto> readAll () {
+    public List<Produto> readAll() {
         return produtoRepository.findAll();
     }
 
