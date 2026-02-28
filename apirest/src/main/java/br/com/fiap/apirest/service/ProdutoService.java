@@ -1,7 +1,9 @@
 package br.com.fiap.apirest.service;
 
+import br.com.fiap.apirest.dto.ProdutoRequest;
 import br.com.fiap.apirest.model.Produto;
 import br.com.fiap.apirest.repository.ProdutoRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +17,9 @@ public class ProdutoService {
     private ProdutoRepository produtoRepository;
 
     //CRUD
-    public Produto create (Produto produto) {
+    public Produto create (ProdutoRequest produtoRequest) {
+        Produto produto = new Produto();
+        BeanUtils.copyProperties(produtoRequest, produto);
         return produtoRepository.save(produto);
     }
 

@@ -1,7 +1,9 @@
 package br.com.fiap.apirest.controller;
 
+import br.com.fiap.apirest.dto.ProdutoRequest;
 import br.com.fiap.apirest.model.Produto;
 import br.com.fiap.apirest.service.ProdutoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +24,7 @@ public class ProdutoController {
     // POST, GET, PUT, DELETE
 
     @PostMapping
-    public ResponseEntity<Produto> createProduto(@RequestBody Produto produto) {
+    public ResponseEntity<Produto> createProduto(@Valid @RequestBody ProdutoRequest produto) {
         //@RequestBody é uma anotação do Spring que indica que o corpo da requisição deve ser convertido em um objeto do tipo Produto.
         //ResponseEntity é uma classe do Spring que retorna a resposta da API.
         Produto produtoSalvo = produtoService.create(produto);

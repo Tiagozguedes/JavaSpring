@@ -1,6 +1,7 @@
 package br.com.fiap.apirest.model;
 
 import jakarta.persistence.*;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.cglib.core.Local;
 
 import java.math.BigDecimal;
@@ -14,6 +15,7 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
     private UUID id;
+    @NotNull
     @Column(name = "name")
     private String nome;
     @Column(name = "preco")
