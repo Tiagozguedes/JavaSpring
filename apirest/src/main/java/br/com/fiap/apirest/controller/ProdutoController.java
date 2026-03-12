@@ -1,6 +1,7 @@
 package br.com.fiap.apirest.controller;
 
 import br.com.fiap.apirest.dto.ProdutoRequest;
+import br.com.fiap.apirest.dto.ProdutoResponse;
 import br.com.fiap.apirest.model.Produto;
 import br.com.fiap.apirest.service.ProdutoService;
 import jakarta.validation.Valid;
@@ -18,9 +19,13 @@ import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 @RestController
 @RequestMapping("/produtos")
 public class ProdutoController {
-    @Autowired //Injeção de dependência
-    private ProdutoService produtoService;
+    // @Autowired
+    // Injeção de dependência via construtor
+    private final ProdutoService produtoService;
 
+    public ProdutoController (ProdutoService produtoService) {
+        this.produtoService = produtoService;
+    }
     // POST, GET, PUT, DELETE
 
     @PostMapping
@@ -32,9 +37,9 @@ public class ProdutoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Produto> readProduto(@PathVariable UUID id) {
+    public ResponseEntity<ProdutoResponse> readProduto(@PathVariable UUID id) {
         //@PathVariable é uma anotação do Spring que indica que o valor do parâmetro id deve ser extraído da URL da requisição.
-        Produto produto  = produtoService.read(id);
+        ProdutoResponse produto  = produtoService.read(id);
         if (produto == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -42,10 +47,10 @@ public class ProdutoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Produto>> readProduto() {
+    public ResponseEntity<List<ProdutoResponse>> readProduto() {
         List<Produto> produtos = produtoService.readAll();
         if (produtos == null) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(produtos, HttpStatus.OK);
     }

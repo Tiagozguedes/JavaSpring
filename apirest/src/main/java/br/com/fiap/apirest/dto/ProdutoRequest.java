@@ -17,8 +17,6 @@ public record ProdutoRequest(
         @NotNull(message = "O preço é obrigatório")
         @DecimalMin(value = "0.99", message = "O valor ménimo deve ser 0.99")
         BigDecimal preco,
-        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-        @JsonFormat(pattern = "dd/MM/yyyy")
         LocalDate expiracao
 ) {
     // Vou apenas transferir os dados e não mudalos, por isso o record.
