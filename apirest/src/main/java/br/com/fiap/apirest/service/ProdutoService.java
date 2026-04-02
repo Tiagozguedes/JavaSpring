@@ -1,5 +1,6 @@
 package br.com.fiap.apirest.service;
 
+import br.com.fiap.apirest.dto.ProdutoLista;
 import br.com.fiap.apirest.dto.ProdutoRequest;
 import br.com.fiap.apirest.dto.ProdutoResponse;
 import br.com.fiap.apirest.mapper.ProdutoMapper;
@@ -7,25 +8,27 @@ import br.com.fiap.apirest.model.Produto;
 import br.com.fiap.apirest.repository.ProdutoRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
+
 
 @Service
 public class ProdutoService {
-    //...
     private final ProdutoRepository produtoRepository;
     private final ProdutoMapper produtoMapper;
 
-    public ProdutoService(ProdutoRepository produtoRepository) {
+    @Autowired
+    public ProdutoService(ProdutoRepository produtoRepository, ProdutoMapper produtoMapper) {
         this.produtoRepository = produtoRepository;
         this.produtoMapper = produtoMapper;
     }
-    //CRUD
-    public Produto create (ProdutoRequest produtoRequest) {
+
+    public Produto create(ProdutoRequest produtoRequest) {
         Produto produto = new Produto();
         BeanUtils.copyProperties(produtoRequest, produto);
         return produtoRepository.save(produto);
@@ -33,18 +36,16 @@ public class ProdutoService {
 
     public ProdutoResponse read(UUID id) {
         Optional<Produto> produto =  produtoRepository.findById(id);
-        if(produto.isEmpty()){
+        if (produto.isEmpty()) {
             return null;
         }
         return produtoMapper.produtoToResponse(produto.get());
     }
 
-    public List<ProdutoResponse> readAll() {
-        List <Produto> produtos =produtoRepository.findAll();
-        return produtos
-                .stream()
-                .map(produtoMapper::produtoToResponse)
-                .collect(Collectors.toList());
+    public Page<ProdutoLista> read(Pageable pageable) {
+        return produtoRepository
+                .findAll(pageable)
+                .map(produtoMapper::produtoToProdutoLista);
     }
 
     public Produto update(Produto produto) {
@@ -54,6 +55,4 @@ public class ProdutoService {
     public void delete(UUID id) {
         produtoRepository.deleteById(id);
     }
-
-
 }
