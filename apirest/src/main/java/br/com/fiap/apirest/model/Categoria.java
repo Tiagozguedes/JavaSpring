@@ -1,9 +1,12 @@
-package br.com.fiap.apirest.Enum;
+package main.java.br.com.fiap.apirest.model;
 
 public enum Categoria {
-    ELETRONICOS("Eletrônicos"),
-    LIVROS("Livros"),
-    OUTROS("Outros");
+    BEBIDAS,
+    ESSENCIA,
+    NARGUILE,
+    VAPE,
+    ACESSORIO,
+    CIGARRO;
 
     private String descricao;
 

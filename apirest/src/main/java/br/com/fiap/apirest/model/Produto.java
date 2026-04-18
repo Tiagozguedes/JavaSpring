@@ -22,11 +22,17 @@ public class Produto {
     private BigDecimal preco;
     @Column(name = "expiracao")
     private LocalDate expiracao;
+    private Categoria categoria;
+    private int estoque;
+    @ManyToMany(mappedBy = "produtos")
+    private List <Pedido> pedidos;
 
     public Produto(String nome, BigDecimal preco, LocalDate expiracao) {
         this.nome = nome;
         this.preco = preco;
         this.expiracao = expiracao;
+        this.categoria = categoria;
+        this.quantidade = quantidade;
     }
 
     public Produto() {
@@ -64,5 +70,35 @@ public class Produto {
         this.expiracao = expiracao;
     }
 
+    public Categoria getCategoria() {
+        return categoria;
+    }
 
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public int getEstoque() {
+        return estoque;
+    }
+
+    public void setEstoque(int estoque) {
+        this.estoque = estoque;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
 }

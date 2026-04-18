@@ -13,10 +13,58 @@ import java.util.UUID;
 public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id")
     private UUID id;
-    private Enum status;
+    private Status status;
     private LocalDate data;
-    // List<Produto produto>;
-    private double Valor;
+    private Double valor;
+    @ManyToOne
+    @JoinColumn(name = "id_cliente")
+
+    private Cliente cliente;
+
+    @ManyToMany
+    @JoinTable(name = "produto_pedido",
+                joinColumns = @joinColumn(name = "id_produto", referencedColumnName = "id"),
+                inverseJoinColumns = @JoinColumn(name = "id_pedido", referencedColumnName = "id" ))
+    private List<Produto> produtos;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public LocalDate getData() {
+        return data;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
+    }
+
+    public Double getValor() {
+        return valor;
+    }
+
+    public void setValor(Double valor) {
+        this.valor = valor;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 }
