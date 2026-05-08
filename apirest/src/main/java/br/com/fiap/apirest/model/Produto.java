@@ -33,7 +33,6 @@ public class Produto {
         this.preco = preco;
         this.expiracao = expiracao;
         this.categoria = categoria;
-        this.quantidade = quantidade;
     }
 
     public Produto() {
@@ -77,14 +76,6 @@ public class Produto {
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
-    }
-
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
     }
 
     public int getEstoque() {
