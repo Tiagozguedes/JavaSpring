@@ -6,6 +6,7 @@ import org.springframework.cglib.core.Local;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -25,8 +26,8 @@ public class Produto {
     private Categoria categoria;
     private int estoque;
     @ManyToMany(mappedBy = "produtos")
-    private List <Pedido> pedidos;
-
+    private List<Pedido> pedidos;
+    //quantidade
     public Produto(String nome, BigDecimal preco, LocalDate expiracao) {
         this.nome = nome;
         this.preco = preco;

@@ -12,6 +12,14 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component
 public class ProdutoMapper {
+    //Mapper
+    //Converte a entidade do banco de dados em DTO antes de retornar para o cliente.
+//    Cliente
+//  ↓ RequestDTO (valida)
+//    Controller → Service → Repository → Banco
+//  ↓ Mapper converte entidade em DTO
+//    Cliente recebe ResponseDTO
+
     public ProdutoResponse produtoToResponse(Produto produto) {
         // Link para a lista de produtos, ou seja, read(pageable) do controller
         Link link = linkTo(methodOn(ProdutoController.class).readProduto(0)).withRel("Lista de produtos");

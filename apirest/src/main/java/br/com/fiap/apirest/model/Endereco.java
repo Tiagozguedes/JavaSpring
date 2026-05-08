@@ -1,6 +1,8 @@
 package br.com.fiap.apirest.model;
 
 
+import jakarta.persistence.*;
+
 import java.util.UUID;
 @Entity
 public class Endereco {

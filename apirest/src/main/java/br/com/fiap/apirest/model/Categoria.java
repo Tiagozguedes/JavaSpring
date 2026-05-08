@@ -1,13 +1,14 @@
-package main.java.br.com.fiap.apirest.model;
+package br.com.fiap.apirest.model;
 
 public enum Categoria {
-    BEBIDAS,
-    ESSENCIA,
-    NARGUILE,
-    VAPE,
-    ACESSORIO,
-    CIGARRO;
+    BEBIDAS("Bebidas"),
+    ESSENCIA("Essencia"),
+    NARGUILE("Narguile"),
+    VAPE("Vape"),
+    ACESSORIO("Acessorio"),
+    CIGARRO("Cigarro");
 
+    //Como passamos um construtor com argumentos, obrigatóriamente precisamos passar valores
     private String descricao;
 
     Categoria(String descricao) {

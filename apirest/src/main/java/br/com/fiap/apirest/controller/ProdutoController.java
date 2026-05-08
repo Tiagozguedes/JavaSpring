@@ -26,6 +26,8 @@ import java.util.UUID;
 @RequestMapping("/produtos")
 @Tag(name = "api-produtos")
 public class ProdutoController {
+
+    // Controller serve receber requisiçõs HTTP, mapeia os diferentes tipo de requisições(GET,POST, PUT, DELETE)
     private final ProdutoService produtoService;
 
     public ProdutoController(ProdutoService produtoService) {
@@ -35,26 +37,33 @@ public class ProdutoController {
     @Operation(summary = "Cria um novo produto")
     @PostMapping
     public ResponseEntity<Produto> createProduto(@Valid @RequestBody ProdutoRequest produto) {
-        Produto produtoSalvo = produtoService.create(produto);
+        Produto produtoSalvo = produtoService.create(produto); //Aqui já é aplicada a lógica de negócio do service
         return new ResponseEntity<>(produtoSalvo, HttpStatus.CREATED);
     }
 
     @Operation(summary = "Busca um produto por id")
     @GetMapping("/{id}")
     public ResponseEntity<ProdutoResponse> readProduto(@PathVariable UUID id) {
+        // PathVariable é usado para extrair o valor do id da URL, converte para o tipo UUID e injeta no parametro de método.
         ProdutoResponse produto = produtoService.read(id);
         if (produto == null) {
             return new ResponseEntity<>(produto, HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(produto, HttpStatus.OK);
     }
+    // Swagger  lê o seu código Java e gera automaticamente uma documentação completa, mostrando
+    //quais endpoints existem(/usuários, /produtos)
+    //métodos HTTP (GET, POST, PUT, DELETE), etc
 
     @Operation(summary = "Busca todos os produtos ")
+    //Operation - Define o código de resposta
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Página de produtos retornada com sucesso!",
                     content = @Content(mediaType = "application/json",
+                            //Content - Define o formato da resposta
                             schema = @Schema(implementation = ProdutoLista.class)
+                            //Schema - Define qual classe representa a resposta
                     )
             ),
             @ApiResponse(responseCode = "404",
@@ -64,8 +73,10 @@ public class ProdutoController {
     })
     @GetMapping
     public ResponseEntity<Page<ProdutoLista>> readProduto(@RequestParam(defaultValue = "0") Integer pageNumber) {
+        //ResquestParam é usado para extrair o valor do pageNumber da query string da URL, converte para o tipo Integer e injeta no parametro de método.
         // page number, page size, sort
         Pageable pageable = PageRequest.of(pageNumber, 2, Sort.by("nome").ascending());
+        // Monta a paginação com o valor injetado pelo RequestParam
         Page<ProdutoLista> produtos = produtoService.read(pageable);
         if (produtos.isEmpty()) {
             return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -76,6 +87,7 @@ public class ProdutoController {
     @Operation(summary = "Atualiza um produto específico")
     @PutMapping
     public ResponseEntity<Produto> updateProduto(@RequestBody Produto produto) {
+        //ResquestBody é usado para extrair o corpo da requisição HTTP, converte para o tipo Produto e injeta no parametro de método.
         ProdutoResponse produtoExistente = produtoService.read(produto.getId());
         if (produtoExistente == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

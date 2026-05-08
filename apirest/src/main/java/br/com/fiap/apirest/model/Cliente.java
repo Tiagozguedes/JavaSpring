@@ -1,11 +1,9 @@
 package br.com.fiap.apirest.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 @Entity
 public class Cliente {
@@ -15,12 +13,16 @@ public class Cliente {
     private String email;
     private LocalDate dataNascimento;
     private String telefone;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_endereco")
 
     private Endereco endereco;
-    @OneToMany(mappeBy = "clinte")
+
+    @OneToMany(mappedBy = "cliente")
+    // mappedBy define quem é o dono relação um cliente tem muitos pedidos
     private List<Pedido> pedidos;
+    // List/Set isso é necessário por conta da relação de OneToMany
 
     public UUID getCpf() {
         return cpf;
@@ -62,6 +64,6 @@ public class Cliente {
         this.telefone = telefone;
     }
 
-    private String telefone;
+
 
 }

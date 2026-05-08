@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public record ProdutoRequest(
+        //As validações ficam no Request DTO justamente para barrar dados inválidos antes de chegar na lógica do sistema
         @NotBlank(message = "O nome é obrigatório")
         @Size(min = 2, max = 150, message = "O nome deve ter entre 2 e 150 caracteres")
         String nome,
@@ -19,5 +20,5 @@ public record ProdutoRequest(
         BigDecimal preco,
         LocalDate expiracao
 ) {
-    // Vou apenas transferir os dados e não mudalos, por isso o record.
+    // Vou apenas transferir os dados, e não mudalos, por isso o record.
 }

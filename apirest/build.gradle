@@ -19,12 +19,14 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-h2console'
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
-	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.2'
+	implementation 'org.springframework.boot:spring-boot-h2console' // Adicionado para suporte ao console do H2, que é uma ferramenta de gerenciamento de banco de dados em memória
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // Adicionado para suporte a JPA (Java Persistence API) e integração com bancos de dados relacionais
+	implementation 'org.springframework.boot:spring-boot-starter-webmvc' // Adicionado para suporte a desenvolvimento de aplicações web usando Spring MVC
+	implementation 'org.springframework.boot:spring-boot-starter-validation' // Adicionado para suporte à validação de dados usando Bean Validation (JSR 380)
+	implementation 'org.springframework.boot:spring-boot-starter-hateoas' // Adicionado para suporte a HATEOAS, que é útil para criar APIs RESTful mais ricas e navegáveis
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.2' // Adicionado para documentação OpenAPI
+	implementation 'com.auth0:java-jwt:4.5.2' // Adicionado para suporte à criação e verificação de tokens JWT (JSON Web Tokens), que são comumente usados para autenticação e autorização em aplicações web
+	implementation 'org.springframework.boot:spring-boot-starter-security' // Adicionado para suporte à segurança em aplicações Spring, incluindo autenticação e autorização
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-data-jpa-test'
 	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'

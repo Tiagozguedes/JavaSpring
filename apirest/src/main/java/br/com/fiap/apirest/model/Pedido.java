@@ -1,10 +1,9 @@
-package main.java.br.com.fiap.apirest.model;
+package br.com.fiap.apirest.model;
 
+import br.com.fiap.apirest.model.Cliente;
 import br.com.fiap.apirest.model.Produto;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import ch.qos.logback.core.status.Status;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,8 +23,9 @@ public class Pedido {
 
     @ManyToMany
     @JoinTable(name = "produto_pedido",
-                joinColumns = @joinColumn(name = "id_produto", referencedColumnName = "id"),
-                inverseJoinColumns = @JoinColumn(name = "id_pedido", referencedColumnName = "id" ))
+                joinColumns = @JoinColumn(name = "id_produto", referencedColumnName = "id"),
+                inverseJoinColumns = @JoinColumn(name = "id_pedido", referencedColumnName = "id" )
+    )
     private List<Produto> produtos;
 
     public UUID getId() {
