@@ -1,10 +1,13 @@
 package br.com.fiap.apirest.controller;
 
 import br.com.fiap.apirest.dto.AuthDTO;
+import br.com.fiap.apirest.dto.LoginResponseDTO;
 import br.com.fiap.apirest.dto.RegisterDTO;
 import br.com.fiap.apirest.model.Usuario;
 import br.com.fiap.apirest.repository.UsuarioRepository;
+import br.com.fiap.apirest.service.TokenService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     private final UsuarioRepository usuarioRepository;
     private AuthenticationManager authenticationManager;
+    @Autowired
+    private TokenService tokenService;
 
     public AuthController(UsuarioRepository usuarioRepository){
         this.usuarioRepository = usuarioRepository;
@@ -32,7 +37,8 @@ public class AuthController {
 
         //Autentica esse token
         var auth = this.authenticationManager.authenticate(usuarioSenha);
-        return ResponseEntity.ok().build();
+        var token = tokenService.generateToken((Usuario)auth.getPrincipal());
+        return ResponseEntity.ok(new LoginResponseDTO(token));
 
     }
 
